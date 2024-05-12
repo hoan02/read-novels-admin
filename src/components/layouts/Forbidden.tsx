@@ -1,11 +1,25 @@
 "use client";
 
-import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
+import {
+  OrganizationSwitcher,
+  SignInButton,
+  UserButton,
+  ClerkLoaded,
+  SignedOut,
+} from "@clerk/nextjs";
+import { Button } from "../ui/button";
 
 const Forbidden = () => {
   return (
     <div className="w-screen h-screen bg-[#342643] fixed">
       <div className="absolute top-4 right-4">
+        <ClerkLoaded>
+          <SignedOut>
+            <SignInButton>
+              <Button>Login</Button>
+            </SignInButton>
+          </SignedOut>
+        </ClerkLoaded>
         <UserButton showName={true} />
       </div>
       <div className="w-full h-full flex flex-col text-center items-center justify-center">
@@ -17,8 +31,9 @@ const Forbidden = () => {
         </div>
         <div className="mt-10 text-gray-300">
           <p>
-            Chỉ có <span className="font-semibold text-green-400">cộng tác viên</span> mới có
-            quyền truy cập vào nội dung này!
+            Chỉ có{" "}
+            <span className="font-semibold text-green-400">cộng tác viên</span>{" "}
+            mới có quyền truy cập vào nội dung này!
           </p>
           <p>
             Nếu bạn muốn trở thành

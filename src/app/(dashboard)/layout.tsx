@@ -37,7 +37,6 @@ export default function RootLayout({
           <ToasterProvider />
           <Protect
             permission="org:writer:create"
-            // role="org:writer"
             fallback={<Forbidden />}
           >
             <ThemeProvider
