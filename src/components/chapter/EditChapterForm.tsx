@@ -1,46 +1,22 @@
 "use client";
 
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "../ui/textarea";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { Checkbox } from "../ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { useEffect } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import TextEditor from "../custom-ui/TextEditor";
+
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
 
 const formSchema = z.object({
   chapterName: z.string().min(2).max(150),
   content: z.string().min(1).trim(),
-  // isLock: z.boolean(),
-  // price: z.number(),
-  // isPublic: z.boolean(),
 });
 
 interface EditChapterFormProps {
-  dataNovel?: NovelType | null;
-  dataChapter?: ChapterType | null;
+  dataNovel: NovelType | null;
+  dataChapter: ChapterType | null;
 }
 
 const EditChapterForm: React.FC<EditChapterFormProps> = ({
@@ -58,6 +34,7 @@ const EditChapterForm: React.FC<EditChapterFormProps> = ({
     try {
       const chapterRequest = fetch(`/api/chapters/${dataChapter?._id}`, {
         method: "POST",
+        headers: { 'Content-Type': 'application/json' }, // Added headers for JSON content type
         body: JSON.stringify({ ...values }),
       });
 
@@ -80,87 +57,29 @@ const EditChapterForm: React.FC<EditChapterFormProps> = ({
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="lg:w-full lg:order-1 space-y-6">
-          <FormField
-            control={form.control}
-            name="chapterName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Tên chương</FormLabel>
-                <FormControl>
-                  <Input placeholder="" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="content"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nội dung</FormLabel>
-                <FormControl>
-                  <TextEditor
-                    value={field.value}
-                    onChange={(content) => field.onChange(content)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* <FormField
-            control={form.control}
-            name="isLock"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Khóa chương</FormLabel>
-                <FormControl>
-                  <Checkbox />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="price"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Giá chương</FormLabel>
-                <FormControl>
-                  <Input type="number" placeholder="" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="isPublic"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Chương công khai</FormLabel>
-                <FormControl>
-                  <Checkbox />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
-        </div>
-        <Button className="bg-blue-1 text-white my-10" type="submit">
-          Submit
-        </Button>
-      </form>
-    </Form>
+    <div>
+      <div className="lg:w-full lg:order-1 space-y-6">
+        <h1 className="text-lg py-4 text-center">
+          [{dataNovel?.novelName}]-{dataNovel?.author}
+        </h1>
+        <h1 className="text-3xl text-center">
+          Chương {String(dataChapter?.chapterIndex)}: {dataChapter?.chapterName}
+        </h1>
+        <div
+          className="my-12"
+          dangerouslySetInnerHTML={{
+            __html: dataChapter?.content!,
+          }}
+        />
+      </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <Button variant="default" className="my-10" type="submit">
+            Save
+          </Button>
+        </form>
+      </Form>
+    </div>
   );
 };
 

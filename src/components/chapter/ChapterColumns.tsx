@@ -7,6 +7,7 @@ import { deleteChapter, updateChapter } from "@/lib/actions/chapter.action";
 import toast from "react-hot-toast";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import { DataTableColumnHeaderButton } from "../data-table/DataTableColumHeaderButton";
 
 const handleDelete = async (row: any) => {
   try {
@@ -45,12 +46,16 @@ const SwitchPublic = async ({ data }: { data: any }) => {
 export const columns: ColumnDef<ChapterType>[] = [
   {
     accessorKey: "chapterNumber",
-    header: "STT",
+    header: ({ column }) => (
+      <DataTableColumnHeaderButton column={column} title="STT" />
+    ),
     cell: ({ row }) => <p>{`${row.original.chapterIndex}`}</p>,
   },
   {
     accessorKey: "chapterName",
-    header: "Tên chương",
+    header: ({ column }) => (
+      <DataTableColumnHeaderButton column={column} title="Tên chương" />
+    ),
     cell: ({ row }) => (
       <Link
         href={`/truyen/${row.original.novelSlug}/${row.original.chapterIndex}`}
@@ -62,12 +67,16 @@ export const columns: ColumnDef<ChapterType>[] = [
   },
   {
     accessorKey: "isPublic",
-    header: "Hiển thị",
+    header: ({ column }) => (
+      <DataTableColumnHeaderButton column={column} title="Hiển thị" />
+    ),
     cell: ({ row }) => <SwitchPublic data={row.original} />,
   },
   {
     accessorKey: "state",
-    header: "Trạng thái",
+    header: ({ column }) => (
+      <DataTableColumnHeaderButton column={column} title="Trạng thái" />
+    ),
     cell: ({ row }) => (
       <Badge
         variant={
