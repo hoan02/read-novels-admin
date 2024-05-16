@@ -119,7 +119,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               <ChildMenuNav label="HỆ THỐNG" items={menuNav.slice(5, 7)} />
             </nav>
           </div>
-          <div className="mt-auto p-4">Bottom</div>
+          <div className="mt-auto m-2 p-4 border-dashed border-2 text-center">
+            <a href="https://www.facebook.com/hoanit02/" target="_blank">
+              Code by: HoanCuTe ❤️
+            </a>
+          </div>
         </div>
       </div>
       <div className="flex flex-col">
@@ -153,7 +157,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                   );
                 })}
               </nav>
-              <div className="mt-auto">Bottom</div>
+              <div className="mt-auto m-2 p-4 border-dashed border-2 text-center">
+                <a href="https://www.facebook.com/hoanit02/" target="_blank">
+                  Code by: HoanCuTe ❤️
+                </a>
+              </div>
             </SheetContent>
           </Sheet>
           <div className="w-full flex-1">

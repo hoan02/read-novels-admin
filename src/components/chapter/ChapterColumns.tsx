@@ -5,9 +5,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import Delete from "../custom-ui/Delete";
 import { deleteChapter, updateChapter } from "@/lib/actions/chapter.action";
 import toast from "react-hot-toast";
-import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { DataTableColumnHeaderButton } from "../data-table/DataTableColumHeaderButton";
+import SwitchUpdateChapter from "../custom-ui/SwitchUpdateChapter";
 
 const handleDelete = async (row: any) => {
   try {
@@ -19,31 +19,7 @@ const handleDelete = async (row: any) => {
   }
 };
 
-const SwitchPublic = async ({ data }: { data: any }) => {
-  const handleSwitchPublic = async () => {
-    const idChapter = data._id;
-    const params = {
-      isPublic: !data.isPublic,
-      state: data.isPublic ? "chưa duyệt" : "đã duyệt",
-    };
-    try {
-      const res = await updateChapter(idChapter, params);
-      if (res.success) toast.success(res.message);
-      else toast.error(res.message);
-    } catch (err: any) {
-      toast.error(err.message);
-    }
-  };
-
-  return (
-    <Switch
-      checked={data.isPublic}
-      onCheckedChange={() => handleSwitchPublic()}
-    />
-  );
-};
-
-export const columns: ColumnDef<ChapterType>[] = [
+export const chapterColumns: ColumnDef<ChapterType>[] = [
   {
     accessorKey: "chapterNumber",
     header: ({ column }) => (
@@ -59,7 +35,7 @@ export const columns: ColumnDef<ChapterType>[] = [
     cell: ({ row }) => (
       <Link
         href={`/truyen/${row.original.novelSlug}/${row.original.chapterIndex}`}
-        className="hover:text-red-1"
+        className="hover:text-green-500 grow"
       >
         {row.original.chapterName}
       </Link>
@@ -70,7 +46,39 @@ export const columns: ColumnDef<ChapterType>[] = [
     header: ({ column }) => (
       <DataTableColumnHeaderButton column={column} title="Hiển thị" />
     ),
-    cell: ({ row }) => <SwitchPublic data={row.original} />,
+    cell: ({ row }) => (
+      <SwitchUpdateChapter
+        id={row.original._id}
+        field="isPublic"
+        initialValue={!!row.original.isPublic}
+      />
+    ),
+  },
+  {
+    accessorKey: "isLock",
+    header: ({ column }) => (
+      <DataTableColumnHeaderButton column={column} title="Khóa" />
+    ),
+    cell: ({ row }) => (
+      <SwitchUpdateChapter
+        id={row.original._id}
+        field="isLock"
+        initialValue={!!row.original.isLock}
+      />
+    ),
+  },
+  {
+    accessorKey: "isApprove",
+    header: ({ column }) => (
+      <DataTableColumnHeaderButton column={column} title="Duyệt" />
+    ),
+    cell: ({ row }) => (
+      <SwitchUpdateChapter
+        id={row.original._id}
+        field="isApprove"
+        initialValue={!!row.original.isApprove}
+      />
+    ),
   },
   {
     accessorKey: "state",

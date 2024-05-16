@@ -1,6 +1,6 @@
 import { Inter as FontSans } from "next/font/google";
 import type { Metadata } from "next";
-import { Protect } from "@clerk/nextjs";
+import { ClerkLoaded, Protect } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 
 import "../globals.css";
@@ -34,20 +34,19 @@ export default function RootLayout({
             fontSans.variable
           )}
         >
-          <ToasterProvider />
-          <Protect
-            permission="org:writer:create"
-            fallback={<Forbidden />}
-          >
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <Layout>{children}</Layout>
-            </ThemeProvider>
-          </Protect>
+          <ClerkLoaded>
+            <ToasterProvider />
+            <Protect role="org:admin" fallback={<Forbidden />}>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <Layout>{children}</Layout>
+              </ThemeProvider>
+            </Protect>
+          </ClerkLoaded>
         </body>
       </html>
     </ClerkVIProvider>

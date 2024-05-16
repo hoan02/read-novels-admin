@@ -22,6 +22,10 @@ const chapterSchema = new mongoose.Schema(
       type: String,
       default: "chưa duyệt",
     },
+    isApprove: {
+      type: Boolean,
+      default: false,
+    },
     isLock: {
       type: Boolean,
       default: false,

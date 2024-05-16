@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 
-import { columns } from "@/components/chapter/ChapterColumns";
+import { chapterColumns } from "@/components/chapter/ChapterColumns";
 import { DataTable } from "@/components/data-table/DataTable";
 import { Button } from "@/components/ui/button";
 import { getChapters } from "@/lib/data/chapter.data";
@@ -23,7 +23,7 @@ const ListChapter = async ({ params }: { params: { novelSlug: string } }) => {
           </Button>
         </Link> */}
       </div>
-      <DataTable columns={columns} data={chapters} searchKey="chapterName" />
+      <DataTable columns={chapterColumns} data={chapters} searchKey="chapterName" />
     </div>
   );
 };

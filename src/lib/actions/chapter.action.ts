@@ -49,6 +49,7 @@ export const updateChapter = async (id: string, params: any) => {
     await connectToDB();
     const chapter = await Chapter.findByIdAndUpdate(id, params, {
       new: true,
+      upsert: true,
     });
     if (!chapter) {
       throw new Error("Không tìm thấy chương!");

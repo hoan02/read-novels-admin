@@ -34,3 +34,20 @@ export const getChapters = async (novelSlug: string) => {
     return createResponse(null, "Error", 500);
   }
 };
+
+export const getUnapprovedChapters = async () => {
+  try {
+    await connectToDB();
+    const unapprovedChapters = await Chapter.find({
+      isApprove: false,
+    });
+
+    // if (!unapprovedChapters.length)
+    //   return createResponse(null, "Không có chương nào chưa được duyệt!", 404);
+
+    return createResponse(unapprovedChapters, "Success!", 200);
+  } catch (err) {
+    console.log(err);
+    return createResponse(null, "Error", 500);
+  }
+};

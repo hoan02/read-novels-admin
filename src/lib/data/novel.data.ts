@@ -1,6 +1,5 @@
 "use server";
 
-import { auth } from "@clerk/nextjs/server";
 import connectToDB from "@/lib/mongodb/mongoose";
 import Novel from "@/lib/models/novel.model";
 import createResponse from "@/utils/createResponse";
@@ -8,12 +7,11 @@ import createResponse from "@/utils/createResponse";
 export const getNovel = async (novelSlug: string) => {
   try {
     await connectToDB();
-    const { userId } = auth();
     const novel = await Novel.findOne({
       novelSlug: novelSlug,
     });
 
-    if (!novel || novel.uploader !== userId) {
+    if (!novel) {
       return createResponse(null, "Không tìm thấy truyện!", 404);
     }
 
@@ -27,10 +25,7 @@ export const getNovel = async (novelSlug: string) => {
 export const getNovels = async () => {
   try {
     await connectToDB();
-    const { userId } = auth();
-    const novels = await Novel.find({
-      uploader: userId,
-    });
+    const novels = await Novel.find();
     return createResponse(novels, "Success", 200);
   } catch (err) {
     console.log(err);

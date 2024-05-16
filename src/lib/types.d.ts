@@ -34,10 +34,11 @@ type ChapterType = {
   _id: string;
   novelSlug: string;
   chapterName: string;
-  chapterIndex: Number;
+  chapterIndex: number;
   content: string;
   state: string;
-  isLock: Boolean;
-  isPublic: Boolean;
+  isApprove: boolean;
+  isLock: boolean;
+  isPublic: boolean;
   publishedDate: Date | null;
 };

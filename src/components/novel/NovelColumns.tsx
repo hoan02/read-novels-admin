@@ -128,36 +128,28 @@ export const novelColumns: ColumnDef<NovelType>[] = [
         <DropdownMenuContent align="end" className="w-[200px] p-2">
           <DropdownMenuItem>
             <Link
-              href={`/${row.original.novelSlug}/them-chuong`}
-              className="flex gap-4 items-center"
-            >
-              <PlusCircle size={20} /> Thêm chương mới
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Link
               href={`/truyen/${row.original.novelSlug}/danh-sach-chuong`}
               className="flex gap-4 items-center"
             >
               <List size={20} /> Danh sách chương
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          {/* <DropdownMenuItem>
             <Link
-              href={`/${row.original.novelSlug}`}
+              href={`/truyen/${row.original.novelSlug}`}
               className="flex gap-4 items-center"
             >
               <FilePenLine size={20} /> Chỉnh sửa truyện
             </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
+          </DropdownMenuItem> */}
+          {/* <DropdownMenuItem>
             <Link
-              href={`/${row.original.novelSlug}/thong-ke`}
+              href={`/truyen/${row.original.novelSlug}/thong-ke`}
               className="flex gap-4 items-center"
             >
               <AreaChart size={20} /> Thống kê
             </Link>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuItem>
             <Link
               href={`${process.env.NEXT_PUBLIC_READER_URL}truyen/${row.original.novelSlug}`}
