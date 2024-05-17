@@ -15,10 +15,38 @@ export const getMonthlyStats = async () => {
   const year = currentDate.getFullYear();
   try {
     await connectToDB();
-    const monthlyStats = await MonthlyStats.findOne({
-      month,
-      year,
-    });
+    const aggregation = await MonthlyStats.aggregate([
+      {
+        $match: {
+          month,
+          year,
+        },
+      },
+      {
+        $group: {
+          _id: null, // Group all records together
+          totalReadCount: { $sum: "$readCount" }, // Sum up the readCount
+        },
+      },
+      {
+        $project: {
+          readCount: "$totalReadCount",
+        },
+      },
+    ]);
+
+    const monthlyStats = aggregation.length > 0 ? aggregation[0] : null;
+
+    if (!monthlyStats) {
+      return createResponse(
+        {
+          readCount: 0,
+        },
+        "Success!",
+        200
+      );
+    }
+
     return createResponse(monthlyStats, "Success!", 200);
   } catch (err) {
     console.log(err);
@@ -29,18 +57,37 @@ export const getMonthlyStats = async () => {
 export const getAllMonthlyStats = async (year: number) => {
   try {
     await connectToDB();
-    const monthlyStats = await MonthlyStats.find({
-      year: year,
-    })
-      .sort({ month: 1 })
-      .exec();
+    const aggregation = await MonthlyStats.aggregate([
+      {
+        $match: {
+          year: year,
+        },
+      },
+      {
+        $group: {
+          _id: "$month",
+          totalReadCount: { $sum: "$readCount" },
+        },
+      },
+      {
+        $sort: { _id: 1 },
+      },
+      {
+        $project: {
+          _id: 0,
+          name: {
+            $concat: [
+              { $toString: { $add: ["$_id", 1] } }, // Convert month to string and adjust for 1-indexed month
+              "/",
+              { $toString: year },
+            ],
+          },
+          value: "$totalReadCount",
+        },
+      },
+    ]);
 
-    const res: StatResponse[] = monthlyStats.map((stats) => ({
-      name: `${stats.month + 1}/${stats.year}`,
-      value: stats.readCount,
-    }));
-
-    return createResponse(res, "Success!", 200);
+    return createResponse(aggregation, "Success!", 200);
   } catch (err) {
     console.error(err);
     return createResponse(null, "Error", 500);

@@ -32,6 +32,11 @@ export const getNominations = async (startDate: Date) => {
       },
       { $unwind: "$user" },
       {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+      {
         $project: {
           updatedAt: 1,
           novel: { novelName: 1 },
