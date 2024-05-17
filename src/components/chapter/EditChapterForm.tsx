@@ -5,9 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import SwitchUpdate from "../custom-ui/SwitchUpdateChapter";
+import { updateChapter } from "@/lib/actions/chapter.action";
 
 const formSchema = z.object({
   chapterName: z.string().min(2).max(150),
@@ -34,7 +33,7 @@ const EditChapterForm: React.FC<EditChapterFormProps> = ({
     try {
       const chapterRequest = fetch(`/api/chapters/${dataChapter?._id}`, {
         method: "POST",
-        headers: { 'Content-Type': 'application/json' }, // Added headers for JSON content type
+        headers: { "Content-Type": "application/json" }, // Added headers for JSON content type
         body: JSON.stringify({ ...values }),
       });
 
@@ -72,13 +71,19 @@ const EditChapterForm: React.FC<EditChapterFormProps> = ({
           }}
         />
       </div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Button variant="default" className="my-10" type="submit">
-            Save
-          </Button>
-        </form>
-      </Form>
+      <div className="flex items-center gap-4 py-10">
+        <p>Trạng thái duyệt: </p>
+        {dataChapter && (
+          <SwitchUpdate
+            initialValue={dataChapter.isApprove}
+            updateFunction={() =>
+              updateChapter(dataChapter._id, {
+                isApprove: !dataChapter.isApprove,
+              })
+            }
+          />
+        )}
+      </div>
     </div>
   );
 };
