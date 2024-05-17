@@ -1,21 +1,17 @@
-import { updateChapter } from "@/lib/actions/chapter.action";
 import React from "react";
 import toast from "react-hot-toast";
 import { Switch } from "../ui/switch";
 
-const SwitchUpdateChapter = ({
-  id,
-  field,
+const SwitchUpdate = ({
   initialValue,
+  updateFunction,
 }: {
-  id: string;
-  field: "isPublic" | "isLock" | "isApprove";
   initialValue: boolean;
+  updateFunction: () => Promise<{ success: boolean; message: string }>;
 }) => {
   const handleSwitchCustom = async () => {
-    const params = { [field]: !initialValue };
     try {
-      const res = await updateChapter(id, params);
+      const res = await updateFunction();
       if (res.success) toast.success(res.message);
       else toast.error(res.message);
     } catch (err: any) {
@@ -26,4 +22,4 @@ const SwitchUpdateChapter = ({
   return <Switch checked={initialValue} onCheckedChange={handleSwitchCustom} />;
 };
 
-export default SwitchUpdateChapter;
+export default SwitchUpdate;

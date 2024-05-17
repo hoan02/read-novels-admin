@@ -7,7 +7,7 @@ import { deleteChapter, updateChapter } from "@/lib/actions/chapter.action";
 import toast from "react-hot-toast";
 import { Badge } from "@/components/ui/badge";
 import { DataTableColumnHeaderButton } from "../data-table/DataTableColumHeaderButton";
-import SwitchUpdateChapter from "../custom-ui/SwitchUpdateChapter";
+import SwitchUpdate from "../custom-ui/SwitchUpdateChapter";
 
 const handleDelete = async (row: any) => {
   try {
@@ -33,12 +33,14 @@ export const chapterColumns: ColumnDef<ChapterType>[] = [
       <DataTableColumnHeaderButton column={column} title="Tên chương" />
     ),
     cell: ({ row }) => (
-      <Link
-        href={`/truyen/${row.original.novelSlug}/${row.original.chapterIndex}`}
-        className="hover:text-green-500 grow"
-      >
-        {row.original.chapterName}
-      </Link>
+      <div className="lg:w-[400px] truncate font-medium">
+        <Link
+          href={`/truyen/${row.original.novelSlug}/${row.original.chapterIndex}`}
+          className="hover:text-green-500"
+        >
+          {row.original.chapterName}
+        </Link>
+      </div>
     ),
   },
   {
@@ -47,10 +49,11 @@ export const chapterColumns: ColumnDef<ChapterType>[] = [
       <DataTableColumnHeaderButton column={column} title="Hiển thị" />
     ),
     cell: ({ row }) => (
-      <SwitchUpdateChapter
-        id={row.original._id}
-        field="isPublic"
+      <SwitchUpdate
         initialValue={!!row.original.isPublic}
+        updateFunction={() =>
+          updateChapter(row.original._id, { isPublic: !row.original.isPublic })
+        }
       />
     ),
   },
@@ -60,10 +63,11 @@ export const chapterColumns: ColumnDef<ChapterType>[] = [
       <DataTableColumnHeaderButton column={column} title="Khóa" />
     ),
     cell: ({ row }) => (
-      <SwitchUpdateChapter
-        id={row.original._id}
-        field="isLock"
+      <SwitchUpdate
         initialValue={!!row.original.isLock}
+        updateFunction={() =>
+          updateChapter(row.original._id, { isLock: !row.original.isLock })
+        }
       />
     ),
   },
@@ -73,10 +77,14 @@ export const chapterColumns: ColumnDef<ChapterType>[] = [
       <DataTableColumnHeaderButton column={column} title="Duyệt" />
     ),
     cell: ({ row }) => (
-      <SwitchUpdateChapter
-        id={row.original._id}
-        field="isApprove"
+      <SwitchUpdate
         initialValue={!!row.original.isApprove}
+        updateFunction={() =>
+          updateChapter(row.original._id, {
+            isApprove: !row.original.isApprove,
+            state: row.original.isApprove ? "chưa duyệt" : "đã duyệt",
+          })
+        }
       />
     ),
   },

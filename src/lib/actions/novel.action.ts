@@ -6,28 +6,21 @@ import Novel from "@/lib/models/novel.model";
 import Chapter from "../models/chapter.model";
 import generateSlug from "@/utils/generateSlug";
 
-export const updateNovel = async (data: any) => {
-  const { novelId, novelName, genres, author, urlCover, description } = data;
-  const novelSlug = generateSlug(novelName);
+export const updateNovel = async (id: string, params: any) => {
   try {
     await connectToDB();
-    await Novel.findByIdAndUpdate(
-      novelId,
-      {
-        novelName,
-        novelSlug,
-        genres,
-        author,
-        urlCover,
-        description,
-      },
-      {
-        new: true,
-      }
-    );
-    revalidatePath("/danh-sach-truyen");
-  } catch (err) {
-    return new Error("Không thể cập nhật truyện!");
+    const novel = await Novel.findByIdAndUpdate(id, params, {
+      new: true,
+      upsert: true,
+    });
+    if (!novel) {
+      throw new Error("Không tìm thấy truyện!");
+    }
+    revalidatePath(`/truyen`);
+    return { success: true, message: "Truyện đã được cập nhật!" };
+  } catch (error) {
+    console.error(error);
+    throw new Error("Không thể cập nhật truyện!");
   }
 };
 

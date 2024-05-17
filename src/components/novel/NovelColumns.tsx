@@ -2,20 +2,11 @@
 
 import Link from "next/link";
 import { type ColumnDef } from "@tanstack/react-table";
-import {
-  ArrowUpDown,
-  AreaChart,
-  FilePenLine,
-  Link2,
-  List,
-  PlusCircle,
-  Ellipsis,
-} from "lucide-react";
+import { Link2, List, Ellipsis, FilePenLine } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { Button } from "../ui/button";
 import Delete from "../custom-ui/Delete";
-import { DataTableColumnHeader } from "../data-table/DataTableColumHeader";
 import { Checkbox } from "../ui/checkbox";
 import {
   DropdownMenu,
@@ -24,8 +15,9 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import formatDate from "@/utils/formatDate";
-import { deleteNovel } from "@/lib/actions/novel.action";
+import { deleteNovel, updateNovel } from "@/lib/actions/novel.action";
 import { DataTableColumnHeaderButton } from "../data-table/DataTableColumHeaderButton";
+import SwitchUpdate from "../custom-ui/SwitchUpdateChapter";
 
 const handleDelete = async (novelId: string) => {
   try {
@@ -71,11 +63,25 @@ export const novelColumns: ColumnDef<NovelType>[] = [
       <div className="lg:w-[400px] truncate font-medium">
         <Link
           href={`/truyen/${row.original.novelSlug}/danh-sach-chuong`}
-          className="flex gap-4 items-center"
+          className="hover:text-green-500"
         >
           {row.original.novelName}
         </Link>
       </div>
+    ),
+  },
+  {
+    accessorKey: "isPublic",
+    header: ({ column }) => (
+      <DataTableColumnHeaderButton column={column} title="Hiển thị" />
+    ),
+    cell: ({ row }) => (
+      <SwitchUpdate
+        initialValue={!!row.original.isPublic}
+        updateFunction={() =>
+          updateNovel(row.original._id, { isPublic: !row.original.isPublic })
+        }
+      />
     ),
   },
   {
@@ -128,28 +134,20 @@ export const novelColumns: ColumnDef<NovelType>[] = [
         <DropdownMenuContent align="end" className="w-[200px] p-2">
           <DropdownMenuItem>
             <Link
+              href={`/truyen/${row.original.novelSlug}`}
+              className="flex gap-4 items-center"
+            >
+              <FilePenLine size={20} /> Thông tin truyện
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link
               href={`/truyen/${row.original.novelSlug}/danh-sach-chuong`}
               className="flex gap-4 items-center"
             >
               <List size={20} /> Danh sách chương
             </Link>
           </DropdownMenuItem>
-          {/* <DropdownMenuItem>
-            <Link
-              href={`/truyen/${row.original.novelSlug}`}
-              className="flex gap-4 items-center"
-            >
-              <FilePenLine size={20} /> Chỉnh sửa truyện
-            </Link>
-          </DropdownMenuItem> */}
-          {/* <DropdownMenuItem>
-            <Link
-              href={`/truyen/${row.original.novelSlug}/thong-ke`}
-              className="flex gap-4 items-center"
-            >
-              <AreaChart size={20} /> Thống kê
-            </Link>
-          </DropdownMenuItem> */}
           <DropdownMenuItem>
             <Link
               href={`${process.env.NEXT_PUBLIC_READER_URL}truyen/${row.original.novelSlug}`}
