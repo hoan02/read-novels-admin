@@ -1,3 +1,24 @@
+type UserType = {
+  clerkId: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  avatar: string;
+  role?: "reader" | "writer" | "admin";
+  publicMetadata: {
+    frameAvatar?: string;
+    premium: {
+      state?: boolean;
+      startDate?: Date;
+      endDate?: Date;
+    };
+  };
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+
 type NovelType = {
   _id: string;
   novelName: string;

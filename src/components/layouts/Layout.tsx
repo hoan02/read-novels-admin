@@ -15,6 +15,8 @@ import {
   MessageCircleQuestion,
   FileWarning,
   LucideIcon,
+  Users,
+  NotebookPen,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -27,54 +29,84 @@ type MenuNav = {
   icon: LucideIcon;
 };
 
-const menuNav: MenuNav[] = [
-  {
-    href: "/cho-duyet",
-    label: "Đang chờ duyệt",
-    icon: Loader,
-  },
-  {
-    href: "/truyen",
-    label: "Danh sách truyện",
-    icon: LibrarySquare,
-  },
-  {
-    href: "/thong-ke",
-    label: "Thống kê",
-    icon: PieChart,
-  },
-  {
-    href: "/xu-ly-bao-cao",
-    label: "Xử lý báo cáo",
-    icon: Flag,
-  },
-  {
-    href: "/yeu-cau-ho-tro",
-    label: "Yêu cầu hỗ trợ",
-    icon: FileWarning,
-  },
-  {
-    href: "/kien-thuc-co-ban",
-    label: "Kiến thức cơ bản",
-    icon: MessageCircleQuestion,
-  },
-  {
-    href: "/bao-loi",
-    label: "Báo lỗi",
-    icon: Bug,
-  },
-];
-
 interface ChildMenuNav {
-  label: string;
+  name: string;
   items: MenuNav[];
 }
 
-const ChildMenuNav = ({ label, items }: ChildMenuNav) => {
+const menuNav: ChildMenuNav[] = [
+  {
+    name: "TRUYỆN",
+    items: [
+      {
+        href: "/cho-duyet",
+        label: "Đang chờ duyệt",
+        icon: Loader,
+      },
+      {
+        href: "/truyen",
+        label: "Danh sách truyện",
+        icon: LibrarySquare,
+      },
+      {
+        href: "/thong-ke",
+        label: "Doanh thu",
+        icon: PieChart,
+      },
+    ],
+  },
+  {
+    name: "TÀI KHOẢN",
+    items: [
+      {
+        href: "/users",
+        label: "Tất cả",
+        icon: Users,
+      },
+      {
+        href: "/writers",
+        label: "Nhà viết truyện",
+        icon: NotebookPen,
+      },
+    ],
+  },
+  {
+    name: "BÁO CÁO & HỖ TRỢ",
+    items: [
+      {
+        href: "/xu-ly-bao-cao",
+        label: "Xử lý báo cáo",
+        icon: Flag,
+      },
+      {
+        href: "/yeu-cau-ho-tro",
+        label: "Yêu cầu hỗ trợ",
+        icon: FileWarning,
+      },
+    ],
+  },
+  {
+    name: "HỆ THỐNG",
+    items: [
+      {
+        href: "/kien-thuc-co-ban",
+        label: "Kiến thức cơ bản",
+        icon: MessageCircleQuestion,
+      },
+      {
+        href: "/bao-loi",
+        label: "Báo lỗi",
+        icon: Bug,
+      },
+    ],
+  },
+];
+
+const ChildMenuNav = ({ name, items }: ChildMenuNav) => {
   const currentPath = usePathname();
   return (
     <div className="mt-2">
-      <p className="my-2 font-bold text-xs text-muted-foreground">{label}</p>
+      <p className="my-2 font-bold text-xs text-muted-foreground">{name}</p>
       {items.map((item) => {
         const Icon = item.icon;
         return (
@@ -108,15 +140,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </div>
           <div className="flex-1">
             <nav className="grid items-start px-2 text-base font-medium lg:px-4">
-              <ChildMenuNav
-                label="TRUYỆN CỦA TÔI"
-                items={menuNav.slice(0, 3)}
-              />
-              <ChildMenuNav
-                label="BÁO CÁO & HỖ TRỢ"
-                items={menuNav.slice(3, 5)}
-              />
-              <ChildMenuNav label="HỆ THỐNG" items={menuNav.slice(5, 7)} />
+              {menuNav.map((menu, index) => (
+                <ChildMenuNav key={index} name={menu.name} items={menu.items} />
+              ))}
             </nav>
           </div>
           <div className="mt-auto m-2 p-4 border-dashed border-2 text-center">
@@ -141,22 +167,32 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             </SheetTrigger>
             <SheetContent side="left" className="flex flex-col">
               <nav className="grid gap-2 text-lg font-medium">
-                {menuNav.map((item) => {
-                  const IconComponent = item.icon;
-                  return (
-                    <Link
-                      href={item.href}
-                      key={item.label}
-                      className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${
-                        currentPath === item.href ? "bg-muted text-primary" : ""
-                      }`}
-                    >
-                      <IconComponent size={20} />
-                      <span className="ml-2">{item.label}</span>
-                    </Link>
-                  );
-                })}
+                {menuNav.map((menu) => (
+                  <ul key={menu.name}>
+                    <p className="my-2 font-bold text-xs text-muted-foreground">
+                      {menu.name}
+                    </p>
+                    {menu.items.map((item) => {
+                      const IconComponent = item.icon;
+                      return (
+                        <Link
+                          href={item.href}
+                          key={item.label}
+                          className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${
+                            currentPath === item.href
+                              ? "bg-muted text-primary"
+                              : ""
+                          }`}
+                        >
+                          <IconComponent size={20} />
+                          <span className="ml-2">{item.label}</span>
+                        </Link>
+                      );
+                    })}
+                  </ul>
+                ))}
               </nav>
+
               <div className="mt-auto m-2 p-4 border-dashed border-2 text-center">
                 <a href="https://www.facebook.com/hoanit02/" target="_blank">
                   Code by: HoanCuTe ❤️
