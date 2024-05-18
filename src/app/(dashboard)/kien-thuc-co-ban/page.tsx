@@ -1,5 +1,11 @@
+import TermsOfService from "@/components/layouts/TermsOfService";
+
 const FaqsPage = () => {
-  return <div>FaqsPage</div>;
+  return (
+    <div>
+      <TermsOfService />
+    </div>
+  );
 };
 
 export default FaqsPage;

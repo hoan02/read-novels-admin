@@ -3,7 +3,6 @@
 import {
   BarChart,
   Bar,
-  Rectangle,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -24,16 +23,15 @@ const OrderByMonthChart = ({
   label: string;
   data: IData[];
 }) => {
-  console.log(data);
   return (
-    <ResponsiveContainer width="100%" height={340}>
+    <ResponsiveContainer width="100%" minHeight={314}>
       <BarChart data={data}>
         <CartesianGrid stroke="hsl(var(--muted))" />
-        <XAxis dataKey="name" stroke="hsl(var(--primary))"/>
-        <YAxis stroke="hsl(var(--primary))"/>
+        <XAxis dataKey="name" stroke="hsl(var(--primary))" />
+        <YAxis stroke="hsl(var(--primary))" />
         <Tooltip />
         <Legend />
-        <Bar name={label} dataKey="value" stroke="hsl(var(--primary))"/>
+        <Bar name={label} dataKey="value" stroke="hsl(var(--primary))" />
       </BarChart>
     </ResponsiveContainer>
   );

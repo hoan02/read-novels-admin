@@ -4,11 +4,6 @@ import connectToDB from "@/lib/mongodb/mongoose";
 import createResponse from "@/utils/createResponse";
 import MonthlyStats from "../models/monthlyStats.model";
 
-interface StatResponse {
-  name: string;
-  value: number;
-}
-
 export const getMonthlyStats = async () => {
   const currentDate = new Date();
   const month = currentDate.getMonth();
@@ -24,13 +19,15 @@ export const getMonthlyStats = async () => {
       },
       {
         $group: {
-          _id: null, // Group all records together
-          totalReadCount: { $sum: "$readCount" }, // Sum up the readCount
+          _id: null,
+          totalReadCount: { $sum: "$readCount" },
+          totalNomination: { $sum: "$nominationCount" },
         },
       },
       {
         $project: {
           readCount: "$totalReadCount",
+          nominationCount: "$totalNomination",
         },
       },
     ]);
@@ -67,6 +64,7 @@ export const getAllMonthlyStats = async (year: number) => {
         $group: {
           _id: "$month",
           totalReadCount: { $sum: "$readCount" },
+          totalNominationCount: { $sum: "$nominationCount" },
         },
       },
       {
@@ -77,12 +75,13 @@ export const getAllMonthlyStats = async (year: number) => {
           _id: 0,
           name: {
             $concat: [
-              { $toString: { $add: ["$_id", 1] } }, // Convert month to string and adjust for 1-indexed month
+              { $toString: { $add: ["$_id", 1] } },
               "/",
               { $toString: year },
             ],
           },
-          value: "$totalReadCount",
+          totalReadCount: 1,
+          totalNominationCount: 1,
         },
       },
     ]);
