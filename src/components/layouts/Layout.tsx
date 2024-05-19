@@ -16,6 +16,7 @@ import {
   LucideIcon,
   Users,
   NotebookPen,
+  CircleDollarSign,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -146,6 +147,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </div>
+
       <div className="flex flex-col">
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
           <Sheet>
@@ -156,10 +158,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 className="shrink-0 md:hidden"
               >
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle navigation menu</span>
+                {/* <span className="sr-only">Toggle navigation menu</span> */}
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="flex flex-col">
+            <SheetContent side="left" className="flex flex-col max-w-[300px]">
               <nav className="grid gap-2 text-lg font-medium">
                 {menuNav.map((menu) => (
                   <ul key={menu.name}>
@@ -200,7 +202,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <UserButton />
         </header>
         <main className="h-[calc(100vh-3.5rem)] p-2 lg:p-4 overflow-y-scroll scrollbar-thin">
-          <div className="w-full h-full">{children}</div>
+          <div className="w-full">{children}</div>
         </main>
       </div>
     </div>

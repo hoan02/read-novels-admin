@@ -51,10 +51,9 @@ const NewNominationList = async () => {
 
 const NewNomination = () => {
   return (
-    <ScrollArea className="h-full rounded-md border">
+    <ScrollArea className="h-full max-h-[560px] rounded-md border">
       <div className="p-4">
         <h4 className="mb-4 text-sm font-medium leading-none">Đề cử mới</h4>
-
         <Suspense fallback={<Loading />}>
           <NewNominationList />
         </Suspense>

@@ -18,7 +18,6 @@ type UserType = {
   updatedAt: Date;
 };
 
-
 type NovelType = {
   _id: string;
   novelName: string;
@@ -29,7 +28,6 @@ type NovelType = {
   urlCover: string;
   uploader: string;
   description: string;
-  nominations: number;
   reviews: {
     count: number;
     avgScore: number;
@@ -41,6 +39,7 @@ type NovelType = {
     totalScoreWorld: number;
   };
   readCount: number;
+  nominationCount: number;
   chapterCount: number;
   commentCount: number;
   state: string;
