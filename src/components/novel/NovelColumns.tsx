@@ -152,6 +152,7 @@ export const novelColumns: ColumnDef<NovelType>[] = [
             <Link
               href={`${process.env.NEXT_PUBLIC_READER_URL}truyen/${row.original.novelSlug}`}
               className="flex gap-4 items-center"
+              target="_blank"
             >
               <Link2 size={20} /> Đọc truyện
             </Link>

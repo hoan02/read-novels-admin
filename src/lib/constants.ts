@@ -23,3 +23,24 @@ export const novelGenres = [
   { name: "Đã sử", slug: "da-su" },
   { name: "Huyền Nghi", slug: "huyen-nghi" },
 ];
+
+export const OrgMembersParams = {
+  memberships: {
+    pageSize: 5,
+    keepPreviousData: true,
+  },
+}
+
+export const OrgInvitationsParams = {
+  invitations: {
+    pageSize: 5,
+    keepPreviousData: true,
+  },
+}
+
+export const OrgMembershipRequestsParams = {
+  membershipRequests: {
+    pageSize: 5,
+    keepPreviousData: true,
+  },
+}

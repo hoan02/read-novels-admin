@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeaderButton } from "../data-table/DataTableColumHeaderButton";
-import SelectRole from "./SelectRole";
 
 export const userColumns: ColumnDef<UserType>[] = [
   {
@@ -49,8 +48,7 @@ export const userColumns: ColumnDef<UserType>[] = [
       <DataTableColumnHeaderButton column={column} title="Vai trò" />
     ),
     cell: ({ row }) => (
-      // <div className="truncate font-medium">{row.original.role}</div>
-      <SelectRole userId={row.original.clerkId} defaultValue={row.original.role} />
+      <div className="truncate font-medium">{row.original.role}</div>
     ),
   },
   {

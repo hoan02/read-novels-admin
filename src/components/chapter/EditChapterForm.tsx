@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import SwitchUpdate from "../custom-ui/SwitchUpdateChapter";
 import { updateChapter } from "@/lib/actions/chapter.action";
+import NovelGuidelines from "../novel/NovelGuidelines";
 
 const formSchema = z.object({
   chapterName: z.string().min(2).max(150),
@@ -57,6 +58,7 @@ const EditChapterForm: React.FC<EditChapterFormProps> = ({
 
   return (
     <div>
+      <NovelGuidelines />
       <div className="lg:w-full lg:order-1 space-y-6">
         <h1 className="text-lg py-4 text-center">
           [{dataNovel?.novelName}]-{dataNovel?.author}

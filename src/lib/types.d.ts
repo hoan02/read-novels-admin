@@ -5,7 +5,7 @@ type UserType = {
   username: string;
   email: string;
   avatar: string;
-  role?: "reader" | "writer" | "admin";
+  role: "reader" | "writer" | "admin";
   publicMetadata: {
     frameAvatar?: string;
     premium: {
