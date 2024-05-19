@@ -16,7 +16,12 @@ const ListNovelPage = async () => {
         <div className="flex items-center justify-between">
           <p className="text-xl font-semibold">Danh sách truyện</p>
         </div>
-        <DataTable columns={novelColumns} data={novels} searchKey="novelName" />
+        <DataTable
+          columns={novelColumns}
+          data={novels}
+          searchKey="novelName"
+          searchName="tên truyện"
+        />
       </div>
     );
   }

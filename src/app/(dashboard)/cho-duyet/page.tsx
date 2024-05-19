@@ -3,7 +3,11 @@ import { DataTable } from "@/components/data-table/DataTable";
 import { getUnapprovedChapters } from "@/lib/data/chapter.data";
 
 const page = async () => {
-  const { data: chaptersUnapproved, message, status } = await getUnapprovedChapters();
+  const {
+    data: chaptersUnapproved,
+    message,
+    status,
+  } = await getUnapprovedChapters();
   if (status === 500) {
     return <>{message}</>;
   }
@@ -13,7 +17,12 @@ const page = async () => {
         <div className="flex items-center justify-between">
           <p className="text-xl font-semibold">Danh chương chờ duyệt</p>
         </div>
-        <DataTable columns={chapterColumns} data={chaptersUnapproved} searchKey="chapterName" />
+        <DataTable
+          columns={chapterColumns}
+          data={chaptersUnapproved}
+          searchKey="chapterName"
+          searchName="tên chương"
+        />
       </div>
     );
   }

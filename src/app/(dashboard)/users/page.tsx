@@ -12,9 +12,14 @@ const page = async () => {
     return (
       <div>
         <div className="flex items-center justify-between">
-          <p className="text-xl font-semibold">Danh chương tài khoản</p>
+          <p className="text-xl font-semibold">Danh sách tài khoản</p>
         </div>
-        <DataTable columns={userColumns} data={users} searchKey="lastName" />
+        <DataTable
+          columns={userColumns}
+          data={users}
+          searchKey="email"
+          searchName="email"
+        />
       </div>
     );
   }

@@ -28,12 +28,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchKey: string;
+  searchName?: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   searchKey,
+  searchName,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -57,7 +59,7 @@ export function DataTable<TData, TValue>({
     <div className="">
       <div className="flex items-center py-4 justify-between">
         <Input
-          placeholder="Search..."
+          placeholder={`Tìm kiếm ${searchName ? `theo ${searchName}` : "..."}`}
           value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn(searchKey)?.setFilterValue(event.target.value)
@@ -76,7 +78,7 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} >
+                    <TableHead key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(

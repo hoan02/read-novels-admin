@@ -23,7 +23,12 @@ const ListChapter = async ({ params }: { params: { novelSlug: string } }) => {
           </Button>
         </Link> */}
       </div>
-      <DataTable columns={chapterColumns} data={chapters} searchKey="chapterName" />
+      <DataTable
+        columns={chapterColumns}
+        data={chapters}
+        searchKey="chapterName"
+        searchName="tên chương"
+      />
     </div>
   );
 };
