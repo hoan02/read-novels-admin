@@ -7,7 +7,7 @@ import {
   ClerkLoaded,
   SignedOut,
 } from "@clerk/nextjs";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 const Forbidden = () => {
   return (

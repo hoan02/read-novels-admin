@@ -5,15 +5,15 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { Link2, List, Ellipsis, FilePenLine } from "lucide-react";
 import toast from "react-hot-toast";
 
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import Delete from "../custom-ui/Delete";
-import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import formatDate from "@/utils/formatDate";
 import { deleteNovel, updateNovel } from "@/lib/actions/novel.action";
 import { DataTableColumnHeaderButton } from "../data-table/DataTableColumHeaderButton";

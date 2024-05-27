@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
 type NovelData = NovelType & {

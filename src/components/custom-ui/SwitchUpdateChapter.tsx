@@ -1,6 +1,7 @@
 import React from "react";
 import toast from "react-hot-toast";
-import { Switch } from "../ui/switch";
+
+import { Switch } from "@/components/ui/switch";
 
 const SwitchUpdate = ({
   initialValue,

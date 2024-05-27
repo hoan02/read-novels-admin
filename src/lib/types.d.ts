@@ -61,4 +61,22 @@ type ChapterType = {
   isLock: boolean;
   isPublic: boolean;
   publishedDate: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type ReportType = {
+  _id: string;
+  clerkId: string;
+  novelSlug?: string;
+  title: string;
+  content: string;
+  isResolved: boolean;
+  messageReply?: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type ReportWithUserType = ReportType & {
+  userInfo: UserType;
 };

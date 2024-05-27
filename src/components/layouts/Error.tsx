@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { statusErrorTitles } from "@/lib/constants";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 interface IPropsError {
   status?: number;

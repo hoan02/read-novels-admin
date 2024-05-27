@@ -73,11 +73,11 @@ const menuNav: ChildMenuNav[] = [
         label: "Xử lý báo cáo",
         icon: Flag,
       },
-      {
-        href: "/yeu-cau-ho-tro",
-        label: "Yêu cầu hỗ trợ",
-        icon: FileWarning,
-      },
+      // {
+      //   href: "/yeu-cau-ho-tro",
+      //   label: "Yêu cầu hỗ trợ",
+      //   icon: FileWarning,
+      // },
     ],
   },
   {
@@ -88,11 +88,11 @@ const menuNav: ChildMenuNav[] = [
         label: "Kiến thức cơ bản",
         icon: MessageCircleQuestion,
       },
-      {
-        href: "/bao-loi",
-        label: "Báo lỗi",
-        icon: Bug,
-      },
+      // {
+      //   href: "/bao-loi",
+      //   label: "Báo lỗi",
+      //   icon: Bug,
+      // },
     ],
   },
 ];

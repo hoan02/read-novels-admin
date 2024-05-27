@@ -14,20 +14,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "../ui/textarea";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { Checkbox } from "../ui/checkbox";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "@/components/ui/select";
 import { useEffect } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import TextEditor from "../custom-ui/TextEditor";
 import { createChapter } from "@/lib/actions/chapter.action";
 
