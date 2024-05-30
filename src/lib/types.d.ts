@@ -27,6 +27,7 @@ type NovelType = {
   tags: string[];
   urlCover: string;
   uploader: string;
+  shortDescription: string;
   description: string;
   reviews: {
     count: number;
