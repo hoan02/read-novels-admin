@@ -1,5 +1,6 @@
 "use client";
 
+import toast from "react-hot-toast";
 import {
   Select,
   SelectContent,
@@ -10,7 +11,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { updateRole } from "@/lib/actions/clerk.action";
-import toast from "react-hot-toast";
 
 const SelectRole = ({
   userId,
