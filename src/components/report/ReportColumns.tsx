@@ -7,7 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import formatDate from "@/utils/formatDate";
 import { DataTableColumnHeaderButton } from "../data-table/DataTableColumHeaderButton";
 
-export const reportColumns: ColumnDef<ReportWithUserType>[] = [
+export const reportColumns: ColumnDef<ReportFullType>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -35,7 +35,7 @@ export const reportColumns: ColumnDef<ReportWithUserType>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => (
-      <DataTableColumnHeaderButton column={column} title="Title" />
+      <DataTableColumnHeaderButton column={column} title="Tiêu đề" />
     ),
     cell: ({ row }) => (
       <div className="lg:w-[400px] truncate font-medium">
@@ -47,6 +47,13 @@ export const reportColumns: ColumnDef<ReportWithUserType>[] = [
         </Link>
       </div>
     ),
+  },
+  {
+    accessorKey: "novel",
+    header: ({ column }) => (
+      <DataTableColumnHeaderButton column={column} title="Truyện" />
+    ),
+    cell: ({ row }) => <div>{row.original.novelInfo?.novelName}</div>,
   },
   {
     accessorKey: "username",

@@ -1,7 +1,6 @@
 "use server";
 
 import mongoose from "mongoose";
-
 import connectToDB from "@/lib/mongodb/mongoose";
 import createResponse from "@/utils/createResponse";
 import Report from "../models/report.model";
@@ -21,6 +20,15 @@ export const getReport = async (id: string) => {
         },
       },
       { $unwind: "$userInfo" },
+      {
+        $lookup: {
+          from: "novels",
+          localField: "novelSlug",
+          foreignField: "novelSlug",
+          as: "novelInfo",
+        },
+      },
+      { $unwind: { path: "$novelInfo", preserveNullAndEmptyArrays: true } },
     ]);
     return createResponse(report[0], "Success!", 200);
   } catch (err) {
@@ -42,6 +50,15 @@ export const getReports = async () => {
         },
       },
       { $unwind: "$userInfo" },
+      {
+        $lookup: {
+          from: "novels",
+          localField: "novelSlug",
+          foreignField: "novelSlug",
+          as: "novelInfo",
+        },
+      },
+      { $unwind: { path: "$novelInfo", preserveNullAndEmptyArrays: true } },
     ]);
     return createResponse(reports, "Success!", 200);
   } catch (err) {

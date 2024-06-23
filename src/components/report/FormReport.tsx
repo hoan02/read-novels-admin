@@ -21,7 +21,7 @@ const replySchema = z.object({
   messageReply: z.string().min(10, "Nội dung phải có ít nhất 10 ký tự"),
 });
 
-const FormReport = ({ reportData }: { reportData: ReportWithUserType }) => {
+const FormReport = ({ reportData }: { reportData: ReportFullType }) => {
   const form = useForm<z.infer<typeof replySchema>>({
     resolver: zodResolver(replySchema),
     defaultValues: {

@@ -78,6 +78,7 @@ type ReportType = {
   updatedAt: Date;
 };
 
-type ReportWithUserType = ReportType & {
+type ReportFullType = ReportType & {
   userInfo: UserType;
+  novelInfo: NovelType;
 };

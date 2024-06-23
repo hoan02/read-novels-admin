@@ -4,7 +4,7 @@ import { DataTable } from "@/components/data-table/DataTable";
 import { reportColumns } from "@/components/report/ReportColumns";
 
 const ReportPage = async () => {
-  const { data: novels, message, status } = await getReports();
+  const { data: reports, message, status } = await getReports();
   if (status === 404) notFound();
   if (status === 500) {
     return <>{message}</>;
@@ -14,13 +14,13 @@ const ReportPage = async () => {
     return (
       <div>
         <div className="flex items-center justify-between">
-          <p className="text-xl font-semibold">Danh sách truyện</p>
+          <p className="text-xl font-semibold">Danh sách báo cáo</p>
         </div>
         <DataTable
           columns={reportColumns}
-          data={novels}
+          data={reports}
           searchKey="title"
-          searchName="tên truyện"
+          searchName="tiêu đề"
         />
       </div>
     );
